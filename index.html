@@ -6,7 +6,7 @@
     <title>第一關：準備大腦 | 美安 AI 顧問系統</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght=400;500;700&display=swap'); body { font-family: 'Noto Sans TC', sans-serif; }</style>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap'); body { font-family: 'Noto Sans TC', sans-serif; }</style>
 </head>
 <body class="bg-gray-50 text-gray-800">
     <nav class="bg-white border-b py-4 px-6 mb-8 text-center"><h1 class="font-bold text-xl text-blue-600">美安 AI 自動化推薦系統實作</h1></nav>
@@ -15,19 +15,28 @@
             <span class="text-blue-600">1. 資料庫</span><span>2. 表單</span><span>3. API</span><span>4. 程式碼</span><span>5. 觸發器</span><span>6. 測試</span>
         </div>
         
-        <h2 class="text-3xl font-extrabold mb-6"><i class="fas fa-database text-blue-500 mr-3"></i>第一關：複製「雙重資料庫」大腦</h2>
+        <h2 class="text-3xl font-extrabold mb-6"><i class="fas fa-database text-blue-500 mr-3"></i>第一關：準備「雙重資料庫」大腦</h2>
         <div class="bg-white p-8 rounded-xl border shadow-sm">
             <p class="mb-6 text-gray-700 text-lg leading-relaxed">我們要先讓 AI 擁有參考的知識庫。我們已經為你將「症狀搭配」與「分析與禁忌」完整整合在同一個 Excel 試算表檔案中囉！</p>
 
-            <div class="mb-8 p-5 bg-blue-50 rounded-lg border border-blue-200">
+            <div class="mb-6 p-5 bg-blue-50 rounded-lg border border-blue-200">
                 <p class="text-base text-blue-800 mb-4"><i class="fas fa-magic mr-2"></i><strong>新手捷徑：</strong>點擊下方按鈕，直接將這份完整的【美安雙重資料庫】複製到你的 Google 雲端硬碟中！</p>
                 <a href="https://docs.google.com/spreadsheets/d/1lco85IuB_Mflu17SpjadQz92y1dPvwTz/copy" target="_blank" class="inline-block bg-blue-600 text-white text-base font-bold px-6 py-3 rounded shadow hover:bg-blue-700 transition">
                     <i class="fas fa-file-excel mr-2"></i>一鍵複製【VIP專屬健康諮詢表】資料庫
                 </a>
             </div>
 
+            <div class="mb-8 p-5 bg-amber-50 rounded-lg border border-amber-200 text-gray-700">
+                <p class="font-bold text-lg text-amber-800 mb-2"><i class="fas fa-exclamation-triangle mr-2 text-amber-600"></i>🚨 關鍵轉檔步驟（沒做第二關會失敗！）</p>
+                <p class="text-base leading-relaxed mb-3">當你點擊上方按鈕完成複製並開啟檔案後，請檢查畫面左上角。如果品名旁邊帶有 <span class="bg-gray-200 px-1.5 py-0.5 rounded text-sm font-mono font-bold text-gray-700">.XLSX</span> 的綠色標籤，請務必手動轉檔：</p>
+                <div class="bg-white p-4 rounded-lg border border-amber-100 text-sm space-y-2 font-medium">
+                    <p class="flex items-center gap-2"><i class="fas fa-mouse-pointer text-amber-500"></i>1. 點擊試算表左上角的 <strong class="text-gray-900 bg-gray-100 px-1 rounded">「檔案 (File)」</strong> 選單。</p>
+                    <p class="flex items-center gap-2"><i class="fas fa-save text-amber-500"></i>2. 點選 <strong class="text-blue-600 bg-blue-50 px-1 rounded">「儲存為 Google 試算表 (Save as Google Sheets)」</strong>。</p>
+                </div>
+                <p class="text-xs text-amber-600 mt-3 font-semibold"><i class="fas fa-info-circle mr-1"></i>為什麼？因為只有轉成 Google 原生格式，第二關的 Google 表單才能在雲端順利連結、並寫入資料喔！</p>
+            </div>
             <div class="border-t pt-6 mt-2">
-                <p class="font-bold text-lg mb-4 text-gray-800"><i class="fas fa-check-circle text-green-500 mr-2"></i>複製成功後，請確認你的試算表底部已包含以下兩個分頁：</p>
+                <p class="font-bold text-lg mb-4 text-gray-800"><i class="fas fa-check-circle text-green-500 mr-2"></i>轉檔成功後，請確認新產生的試算表底部包含以下兩個分頁：</p>
                 
                 <ul class="space-y-4 mb-8 text-base">
                     <li class="flex items-start gap-2">
@@ -50,7 +59,7 @@
         </div>
 
         <div class="mt-8 flex justify-end">
-            <a href="part2.html" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition">大腦建置完畢！前往第二關 <i class="fas fa-arrow-right ml-2"></i></a>
+            <a href="part2.html" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition">轉檔並檢查完畢！前往第二關 <i class="fas fa-arrow-right ml-2"></i></a>
         </div>
     </main>
 </body>
