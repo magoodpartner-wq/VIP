@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第五關：自動觸發 | 美安 AI 顧問系統</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap'); body { font-family: 'Noto Sans TC', sans-serif; }</style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="bg-white border-b py-4 px-6 mb-8 text-center"><h1 class="font-bold text-xl text-blue-600">美安 AI 自動化推薦系統實作</h1></nav>
+    <main class="max-w-3xl mx-auto px-6 mb-20">
+        <div class="flex justify-between text-xs font-bold text-gray-400 mb-8">
+            <span class="text-blue-600">✓</span><span class="text-blue-600">✓</span><span class="text-blue-600">✓</span><span class="text-blue-600">✓</span><span class="text-blue-600">5. 觸發器</span><span>6. 測試</span>
+        </div>
+        
+        <h2 class="text-3xl font-extrabold mb-6"><i class="fas fa-bolt text-yellow-400 mr-3"></i>第五關：啟動自動化開關</h2>
+        <div class="bg-white p-8 rounded-xl border shadow-sm">
+            <p class="mb-4">程式碼寫好了，現在我們要告訴 Google：「當顧客送出問卷時，就立刻執行！」</p>
+            <ul class="list-none space-y-4 text-gray-700">
+                <li class="border-b pb-3">1. 在 Apps Script 畫面左方選單，點擊 <strong>「時鐘圖示（觸發條件）」</strong>。</li>
+                <li class="border-b pb-3">2. 點擊右下角的藍色按鈕 <strong>「新增觸發條件」</strong>。</li>
+                <li class="border-b pb-3">
+                    3. 設定以下三個重點：<br>
+                    - 選擇要執行的功能：<strong>onFormSubmit</strong><br>
+                    - 選取活動來源：<strong>來自試算表</strong><br>
+                    - 選取活動類型：<strong class="text-blue-600">提交表單時</strong>
+                </li>
+                <li>4. 點擊儲存。若跳出權限請求，請依序點擊：<strong>你的帳號 > 進階 > 前往(不安全) > 允許</strong>。</li>
+            </ul>
+        </div>
+
+        <div class="mt-8 flex justify-between">
+            <a href="part4.html" class="text-gray-500 hover:text-blue-600 font-bold py-3"><i class="fas fa-arrow-left mr-2"></i> 上一關</a>
+            <a href="part6.html" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition">設定好了！進入最終測試 <i class="fas fa-arrow-right ml-2"></i></a>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第四關：部署程式碼 | 美安 AI 顧問系統</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap'); body { font-family: 'Noto Sans TC', sans-serif; }</style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="bg-white border-b py-4 px-6 mb-8 text-center"><h1 class="font-bold text-xl text-blue-600">美安 AI 自動化推薦系統實作</h1></nav>
+    <main class="max-w-4xl mx-auto px-6 mb-20">
+        <div class="flex justify-between text-xs font-bold text-gray-400 mb-8">
+            <span class="text-blue-600">✓ 完成</span><span class="text-blue-600">✓ 完成</span><span class="text-blue-600">✓ 完成</span><span class="text-blue-600">4. 程式碼</span><span>5. 觸發器</span><span>6. 測試</span>
+        </div>
+        
+        <h2 class="text-3xl font-extrabold mb-6"><i class="fas fa-code text-blue-500 mr-3"></i>第四關：部署魔法程式碼</h2>
+        <div class="bg-white p-6 rounded-xl border shadow-sm mb-6">
+            <p class="text-lg">1. 回到你的「試算表」，點選上方選單的 <strong>「擴充功能」 > 「Apps Script」</strong>。</p>
+            <p class="text-lg mt-2">2. 將裡面原本的文字全數刪除，並貼上下方這段完整程式碼：</p>
+            <div class="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                <p class="text-red-500 font-bold"><i class="fas fa-exclamation-triangle mr-2"></i>新手必做：貼上後，請務必將程式碼前兩行的 API_KEY 與 Email 替換成你自己的資料！</p>
+            </div>
+        </div>
+
+        <div class="relative group">
+            <div class="absolute right-4 top-4 text-gray-400 hover:text-white cursor-pointer"><i class="fas fa-copy"></i></div>
+            
+            <pre class="bg-gray-900 text-green-400 p-6 rounded-xl overflow-x-auto text-sm border-2 border-gray-800 shadow-lg leading-relaxed"><code>// 1. 請在此填入您的 Gemini API Key
+const GEMINI_API_KEY = '請將此處替換為您的_API_KEY';
+const ADMIN_EMAIL = '請填寫您的電子信箱@gmail.com'; 
+
+// 2. 定義兩個資料庫的分頁名稱
+const SYMPTOM_SHEET_NAME = '症狀搭配資料庫'; 
+const PRODUCT_SHEET_NAME = '產品分析與禁忌資料庫'; 
+
+function onFormSubmit(e) {
+  try {
+    // 【防呆機制】防止新手在編輯器中直接點擊「執行」
+    if (!e) throw new Error("請勿手動點擊執行！此程式必須透過「提交表單」來自動觸發。");
+
+    const responses = e.namedValues;
+    const customerInfo = JSON.stringify(responses, null, 2);
+    const customerName = responses['姓名'] ? responses['姓名'][0] : (responses['稱呼'] ? responses['稱呼'][0] : '顧客');
+    
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+
+    // 讀取【症狀搭配資料庫】
+    const symptomSheet = ss.getSheetByName(SYMPTOM_SHEET_NAME);
+    if (!symptomSheet) throw new Error(`找不到名為「${SYMPTOM_SHEET_NAME}」的分頁，請檢查是否有錯字。`);
+    const symptomData = symptomSheet.getDataRange().getValues();
+    const symptomDBString = JSON.stringify(sheetToJSON(symptomData), null, 2);
+
+    // 讀取【產品分析與禁忌資料庫】
+    const productSheet = ss.getSheetByName(PRODUCT_SHEET_NAME);
+    if (!productSheet) throw new Error(`找不到名為「${PRODUCT_SHEET_NAME}」的分頁，請檢查是否有錯字。`);
+    const productData = productSheet.getDataRange().getValues();
+    const productDBString = JSON.stringify(sheetToJSON(productData), null, 2);
+
+    // 構建雙層邏輯的 System Prompt
+    const promptText = `
+    你是一位嚴謹且專業的健康諮詢顧問。你的任務是根據顧客的「健康諮詢表單」，利用我提供的兩個資料庫，為顧客挑選最適合且安全的產品搭配。
+
+    請你務必嚴格按照以下「兩個步驟」進行思考與篩選：
+
+    【步驟一：初步配對 (尋找解方)】
+    請先參考【症狀搭配資料庫】，根據顧客在表單中勾選的「健康困擾」與「需求」，找出對應的推薦產品清單與底層機制。
+
+    【步驟二：安全過濾與最終確認 (禁忌把關)】
+    取得初步清單後，請務必拿這份清單去比對【產品分析與禁忌資料庫】。
+    1. 禁忌攔截：仔細檢查顧客的「生理狀態(如懷孕/哺乳)」、「過敏史」與「用藥/病史」。若初步清單中的產品在「禁忌與不適用族群」欄位中與顧客狀態衝突，【絕對禁止】推薦該產品，必須將其從清單中剔除。
+    2. 數量與優先級：經過安全過濾後，請從剩餘安全的產品中，精選出「最多 3 到 5 項」對顧客最急迫需要的核心產品。
+    3. 資訊提取：針對最終選定的產品，請從【產品分析與禁忌資料庫】中提取正確的「核心功效」與「小提醒與建議(食用方法)」。
+
+    【輸出格式要求】：
+    請以親切、專業、有同理心的顧問語氣撰寫給顧客的信件（稱呼：[顧客姓名] 您好）。
+    信件內容需包含：
+    1. 安全把關說明：說明您已為顧客排除了哪些潛在風險（若有因為過敏或用藥而剔除產品，請溫柔地說明原因）。
+    2. 專屬推薦產品搭配：列出最終過濾後的產品（最多5項），包含完整產品名稱、底層機制/核心功效，以及正確的食用方法與水溫叮嚀。
+    3. 結語與提醒。
+
+    【資料庫一：症狀搭配資料庫】:
+    ${symptomDBString}
+
+    【資料庫二：產品分析與禁忌資料庫】:
+    ${productDBString}
+
+    【顧客諮詢表單內容】:
+    ${customerInfo}
+    `;
+
+    // 呼叫 Gemini API
+    const recommendation = callGeminiAPI(promptText);
+
+    // 將審核信件寄給管理者
+    MailApp.sendEmail({
+      to: ADMIN_EMAIL,
+      subject: `[新諮詢審核] ${customerName} 的專屬產品推薦建議`,
+      body: `有新顧客提交了健康諮詢表單！\n\n` +
+            `【顧客姓名】: ${customerName}\n` +
+            `=================================\n` +
+            `【AI 分析推薦結果 (雙重過濾版)】\n\n` +
+            `${recommendation}\n\n` +
+            `=================================\n` +
+            `【顧客原始表單資料參考】\n` +
+            `${customerInfo}`
+    });
+
+  } catch (error) {
+    console.error("執行發生錯誤: " + error.toString());
+    MailApp.sendEmail({
+      to: ADMIN_EMAIL,
+      subject: "[系統錯誤] 產品推薦系統執行失敗",
+      body: `自動化腳本發生錯誤，請回到 Google 試算表檢查。\n\n系統錯誤訊息：\n${error.toString()}`
+    });
+  }
+}
+
+// 輔助函式：將 Google Sheets 二維陣列轉為 JSON 物件陣列
+function sheetToJSON(dataValues) {
+  const headers = dataValues[0];
+  return dataValues.slice(1).map(row => {
+    let obj = {};
+    headers.forEach((header, index) => {
+      obj[header] = row[index] ? row[index].toString().trim() : '';
+    });
+    return obj;
+  });
+}
+
+function callGeminiAPI(prompt) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+  const payload = {
+    "contents": [{"parts": [{"text": prompt}]}],
+    "generationConfig": {
+      "temperature": 0.1 
+    }
+  };
+  const options = {
+    "method": "post",
+    "contentType": "application/json",
+    "payload": JSON.stringify(payload),
+    "muteHttpExceptions": true
+  };
+  const response = UrlFetchApp.fetch(url, options);
+  const json = JSON.parse(response.getContentText());
+  if (json.error) throw new Error(json.error.message);
+  return json.candidates[0].content.parts[0].text;
+}</code></pre>
+        </div>
+
+        <p class="mt-6 text-center text-gray-600 font-bold text-lg"><i class="fas fa-save mr-2 text-blue-500"></i>貼上並修改信箱與金鑰後，請務必點擊畫面上方的 💾 (磁碟片圖示) 儲存！</p>
+
+        <div class="mt-8 flex justify-between">
+            <a href="part3.html" class="text-gray-500 hover:text-blue-600 font-bold py-3"><i class="fas fa-arrow-left mr-2"></i> 上一關</a>
+            <a href="part5.html" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition">儲存好了！前往第五關 <i class="fas fa-arrow-right ml-2"></i></a>
+        </div>
+    </main>
+</body>
+</html>
+
+```
