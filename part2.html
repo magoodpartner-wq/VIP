@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第二關：表單製作 | 美安 AI 顧問系統</title>
+    <title>第二關：表單製作與串接 | 美安 AI 顧問系統</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap'); body { font-family: 'Noto Sans TC', sans-serif; }</style>
@@ -15,28 +15,40 @@
             <span class="text-blue-600">✓ 完成</span><span class="text-blue-600">2. 表單</span><span>3. API</span><span>4. 程式碼</span><span>5. 觸發器</span><span>6. 測試</span>
         </div>
         
-        <h2 class="text-3xl font-extrabold mb-6"><i class="fas fa-list-check text-blue-500 mr-3"></i>第二關：製作顧客問卷</h2>
+        <h2 class="text-3xl font-extrabold mb-6"><i class="fas fa-list-check text-blue-500 mr-3"></i>第二關：製作問卷與資料庫串接</h2>
         <div class="bg-white p-8 rounded-xl border shadow-sm">
-            <ol class="list-decimal list-inside space-y-5 text-gray-700 text-lg">
-                <li>建立一個新的 <strong>Google 表單</strong>。
-                    <div class="mt-4 mb-2 p-5 bg-blue-50 rounded-lg border border-blue-200 ml-6">
-                        <p class="text-base text-blue-800 mb-3"><i class="fas fa-magic mr-2"></i><strong>新手捷徑：</strong>不想自己從頭設計表單嗎？點擊下方按鈕，直接複製我們為你準備好的高轉化率問卷範本！</p>
+            <p class="mb-6 text-gray-700 text-lg">擁有資料庫大腦後，現在我們要建立前端的問卷，並把它們串接在一起。</p>
+            
+            <ol class="list-decimal list-inside space-y-6 text-gray-700 text-lg">
+                <li>
+                    <strong>複製專屬 Google 表單：</strong>
+                    <div class="mt-4 mb-4 p-5 bg-blue-50 rounded-lg border border-blue-200 ml-6">
+                        <p class="text-base text-blue-800 mb-3"><i class="fas fa-magic mr-2"></i><strong>新手捷徑：</strong>點擊下方按鈕，直接複製專屬的高轉化率【健康諮詢問卷範本】！</p>
                         <a href="https://docs.google.com/forms/d/1-ua6rBDW7dA5HxbKebsZKLfCbZ3xa_N2bBGJnJED118/copy" target="_blank" class="inline-block bg-blue-600 text-white text-sm font-bold px-5 py-2.5 rounded shadow hover:bg-blue-700 transition">
                             <i class="fas fa-copy mr-2"></i>一鍵複製表單範本
                         </a>
                     </div>
                 </li>
-                <li>根據你的需求，稍微微調或新增問題（例如：姓名、肌膚困擾、生活習慣、是否懷孕、Email 信箱）。</li>
-                <li class="p-4 bg-yellow-50 rounded-lg border border-yellow-200 mt-4">
-                    <strong>關鍵步驟：</strong><br>
-                    在表單的「回覆」分頁，點擊 <strong>「連結至試算表」</strong>，並選擇「選取現有試算表」，將它連結到我們在第一關建立的那份試算表中！
+                
+                <li class="border-t pt-4">
+                    <strong>將表單「綁定」至第一關複製的資料庫：</strong>
+                    <div class="mt-3 p-5 bg-yellow-50 rounded-lg border border-yellow-200 text-base leading-relaxed">
+                        <p class="font-bold text-yellow-800 mb-2"><i class="fas fa-link mr-2"></i>關鍵串接步驟（請仔細操作）：</p>
+                        <ol class="list-none space-y-2 pl-2 text-gray-700">
+                            <li>1. 進到你剛才複製成功的 <strong>Google 表單</strong> 編輯畫面。</li>
+                            <li>2. 點選上方針對管理者的 <strong>「回覆」</strong> 頁籤。</li>
+                            <li>3. 點擊綠色的 <strong>「連結至試算表」</strong> 按鈕。</li>
+                            <li>4. 選擇 <strong>「選取現有試算表」</strong>，並點選你在第一關複製的那份【VIP專屬健康諮詢表】。</li>
+                        </ol>
+                        <p class="text-xs text-gray-400 mt-3"><i class="fas fa-lightbulb mr-1"></i>提示：連結成功後，你的資料庫試算表中會自動多出一個叫「表單回覆 1」的新分頁，這代表表單與大腦已成功連線！</p>
+                    </div>
                 </li>
             </ol>
         </div>
 
         <div class="mt-8 flex justify-between">
             <a href="index.html" class="text-gray-500 hover:text-blue-600 font-bold py-3"><i class="fas fa-arrow-left mr-2"></i> 上一關</a>
-            <a href="part3.html" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition">完成！前往第三關 <i class="fas fa-arrow-right ml-2"></i></a>
+            <a href="part3.html" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition">串接完成！前往第三關 <i class="fas fa-arrow-right ml-2"></i></a>
         </div>
     </main>
 </body>
