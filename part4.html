@@ -18,7 +18,19 @@
         <h2 class="text-3xl font-extrabold mb-6"><i class="fas fa-code text-blue-500 mr-3"></i>第四關：部署自動化核心程式碼</h2>
         <div class="bg-white p-6 rounded-xl border shadow-sm mb-6">
             <p class="text-base">1. 回到你的「試算表大腦」，點選上方選單的 <strong>「擴充功能」 > 「Apps Script」</strong>。</p>
-            <p class="text-base mt-2">2. 將裡面原本的預設文字全數刪除，並貼上下方這段精準雙重過濾程式碼：</p>
+            
+            <div class="mt-4 p-4 bg-indigo-50 rounded-lg border border-indigo-200 text-sm">
+                <p class="text-indigo-800 font-bold mb-2"><i class="fas fa-mobile-alt mr-2"></i>📱 正在用手機操作，找不到「擴充功能」？</p>
+                <p class="text-gray-600 leading-relaxed">
+                    Google 試算表的手機 App 與手機網頁預設會隱藏此功能。<strong>強烈建議您此步驟換到「電腦」上操作</strong>最輕鬆！<br>
+                    若手邊暫時沒有電腦，請跟著以下步驟強行開啟：<br>
+                    1. <span class="text-red-600 font-bold">請關閉 Google 試算表 App</span>，改用手機的 <strong>Chrome / Safari 瀏覽器</strong> 開啟試算表網頁。<br>
+                    2. 點擊瀏覽器的設定選單（Chrome 為右上角三個點 <i class="fas fa-ellipsis-v"></i> / Safari 為網址列的 <i class="text-xs">AA</i> 按鈕）。<br>
+                    3. 勾選 <strong>「切換為電腦版網站」</strong>（或請求桌面網站）。<br>
+                    4. 畫面變大後，即可在上方功能列看到「擴充功能」囉！
+                </p>
+            </div>
+            <p class="text-base mt-4">2. 將裡面原本的預設文字全數刪除，並貼上下方這段精準雙重過濾程式碼：</p>
             <div class="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
                 <p class="text-red-600 font-bold"><i class="fas fa-exclamation-triangle mr-2"></i>貼上後，請務必將前兩行的 GEMINI_API_KEY 與 ADMIN_EMAIL 替換成你自己的！</p>
             </div>
@@ -45,13 +57,13 @@ function onFormSubmit(e) {
 
     // 讀取【症狀搭配資料庫】
     const symptomSheet = ss.getSheetByName(SYMPTOM_SHEET_NAME);
-    if (!symptomSheet) throw new Error(`找不到分頁「${SYMPTOM_SHEET_NAME}」，請檢查是否有改動分頁名。`);
+    if (!symptomSheet) throw new Error(`找不到分頁「\${SYMPTOM_SHEET_NAME}」，請檢查是否有改動分頁名。`);
     const symptomData = symptomSheet.getDataRange().getValues();
     const symptomDBString = JSON.stringify(sheetToJSON(symptomData), null, 2);
 
     // 讀取【產品分析與禁忌資料庫】
     const productSheet = ss.getSheetByName(PRODUCT_SHEET_NAME);
-    if (!productSheet) throw new Error(`找不到分頁「${PRODUCT_SHEET_NAME}」，請檢查是否有改動分頁名。`);
+    if (!productSheet) throw new Error(`找不到分頁「\${PRODUCT_SHEET_NAME}」，請檢查是否有改動分頁名。`);
     const productData = productSheet.getDataRange().getValues();
     const productDBString = JSON.stringify(sheetToJSON(productData), null, 2);
 
@@ -67,7 +79,7 @@ function onFormSubmit(e) {
     【步驟二：安全過濾與最終確認 (禁忌把關)】
     取得初步清單後，請務必拿這份清單去比對【產品分析與禁忌資料庫】。
     1. 禁忌攔截：仔細檢查顧客的「生理狀態(如懷孕/哺乳)」、「過敏史」與「用藥/病史」。若初步清單中的產品在「禁忌與不適用族群」欄位中與顧客狀態衝突，【絕對禁止】推薦該產品，必須將其從清單中剔除。
-    2. 數量與優先級：經過安全過濾後，請從剩餘安全的產品中，精選出「最多 3 到 5 項」對顧客最急迫需要的核心產品。
+    2. 數量與優先級：經過安全過濾後，請從剩餘安全的產品中，精選出「最多 3 到 5 項」對顧客最急迫需要的核心產品.
     3. 資訊提取：針對最終選定的產品，請從【產品分析與禁忌資料庫】中提取正確的「核心功效」與「小提醒與建議(食用方法)」。
 
     【輸出格式要求】：
@@ -108,7 +120,7 @@ function onFormSubmit(e) {
     MailApp.sendEmail({
       to: ADMIN_EMAIL,
       subject: "[系統錯誤] 產品推薦系統執行失敗",
-      body: `自動化腳本發生錯誤，請回到 Google 試算表檢查。\n\n錯誤訊息：\n\${error.toString()}`
+      body: `自動化腳本發生錯誤，請回到 Google 試算表檢查。\n\n錯誤訊息：\n\h{error.toString()}`
     });
   }
 }
